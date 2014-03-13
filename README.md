@@ -19,7 +19,7 @@ define(function(require,exports,module){ // 参数均可选
 	
 打包
 ====
-使用下面命令行打包模块：
+使用下面命令行打包模块：（你可能需要更改 pack.bat 或 pack.js 中关于 node 路径的代码）
 > pack ``[入口文件.js]`` ``[根目录]``
 
 example 中示例打包：
