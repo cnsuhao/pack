@@ -32,10 +32,11 @@ example 中示例打包：
 ```
 命令输出：
 > D:\data\htdocs\pack\example/index.pack.js
+DONE
 
+或
 > /data/htdocs/pack/example/index.pack.js
-
-> DONE
+DONE
 
 打包后的 *.pack.js 文件不依赖上面的 browser.js 直接引入最终页面即可使用。
 
