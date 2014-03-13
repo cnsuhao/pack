@@ -1,18 +1,41 @@
-pack
+超级简单的浏览器模块系统，含打包工具（基于 Nodejs）。<strong>使用方式，请参考 example 目录下的示例</strong>
+
+
+
+开发
 ====
-
-超级简单的浏览器模块系统，含打包工具（基于 NODEjs）
-
-
-
-``开发``
-	<script src="browser.js"></script>
+引入
+```html
+<script src="browser.js"></script>
+```
+即可在代码中使用下面语法定义和使用模块：
+```javascript
+define(function(require,exports,module){ // 参数均可选
+    var bbb = require('/aaa/bbb.js'); // 加载其他模块（最好使用绝对路径）
+    bbb.something();
+    // ... 
+});
+```
 	
-``打包``
-pack.bat 入口文件.js 根目录
-例如：
-<code>
-> .\bin\pack.bat example/index.js example
-D:\data\htdocs\pack\example/index.pack.js
-DONE
-</code>
+打包
+====
+使用下面命令行打包模块：
+> pack ``[入口文件.js]`` ``[根目录]``
+
+example 中示例打包：
+```
+.\bin\pack.bat example/index.js example
+```
+或
+```
+./bin/pack.js example/index.js example
+```
+命令输出：
+> D:\data\htdocs\pack\example/index.pack.js
+> /data/htdocs/pack/example/index.pack.js
+> DONE
+
+打包后的 *.pack.js 文件不依赖上面的 browser.js 直接引入最终页面即可使用。
+
+
+
