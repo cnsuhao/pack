@@ -70,13 +70,13 @@ function output() {
 	code += '\tvar modules = {};\n';
 	for(var index = 0; index<MODULES.length; ++index) {
 		if(MODULES[index][2]) {
-			code += 'modules["'+MODULES[index][0]+'"] = {exports: {}, uri: "'+MODULES[index][2]+'"};\n('+MODULES[index][1]+')(_require, modules["'+MODULES[index][0]+'"].exports, modules["'+MODULES[index][0]+'"]);\n';
+			code += 'modules["'+MODULES[index][0]+'"] = {exports:{}};('+MODULES[index][1]+')(_require, modules["'+MODULES[index][0]+'"].exports, modules["'+MODULES[index][0]+'"]);\n';
 		}else{
 			code += 'modules["'+MODULES[index][0]+'"] = '+ JSON.stringify(MODULES[index][1]) + ';\n';
 		}
 	}
 	code += 'function _require(id) { if(typeof(modules[id]) === "string"){ return modules[id]; } else { return modules[id].exports; } }\n';
-	code += '_require("'+ENTRY_FILE.substr(ROOT.length).replace(/\\/g,'/')+'");\n\n})();';
+	code += '_require("'+MODULES[MODULES.length-1][0]+'");\n\n})();';
 	var pack_file = path.dirname(ENTRY_FILE)+'/'+path.basename(ENTRY_FILE,'.js')+'.pack'+path.extname(ENTRY_FILE);
 	fs.writeFile(pack_file, code, function() {
 		console.log(pack_file);
