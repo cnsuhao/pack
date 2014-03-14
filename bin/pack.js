@@ -1,5 +1,5 @@
 #!/bin/env node
-var fs = require('fs'), path = require('path'), vm = require('vm');
+var fs = require('fs'), path = require('path'), vm = require('vm'), crypto = require('crypto');
 
 if(process.argv.length != 4 || process.argv[2] === '--help' || process.argv[2] == '-h') {
 	console.log('pack $entry_file $root_directory');
@@ -39,16 +39,17 @@ function parse(file) {
 			FILES.push(_file);
 			return 'require("'+_file+'")';
 		});
-		MODULES.unshift([file,code]);
+		MODULES.unshift([file,code,true]);
 	}else{
-		MODULES.unshift([file,fs.readFileSync(file).toString()]);
+		MODULES.unshift([file,fs.readFileSync(file).toString(),false]);
 	}
 
 	PARSED[file] = true;
 }
 
 function short(index) {
-	_file = MODULES[index][0].substr(ROOT.length).replace(/\\/g,'/');
+	MODULES[index][2] = MODULES[index][0].substr(ROOT.length).replace(/\\/g,'/');
+	_file = crypto.createHash('md5').update(MODULES[index][2]).digest('hex').substr(0,8);
 
 	var pattern;
 	for(var i=0;i<MODULES.length;++i) {
@@ -65,8 +66,8 @@ function output() {
 	var code = '//PACK ROOT='+ROOT+'\n(function() {\n\n';
 	code += '\tvar modules = {};\n';
 	for(var index = 0; index<MODULES.length; ++index) {
-		if(path.extname(MODULES[index][0]) === '.js') {
-			code += 'modules["'+MODULES[index][0]+'"] = {exports: {}, uri: "'+MODULES[index][0]+'"};\n('+MODULES[index][1]+')(_require, modules["'+MODULES[index][0]+'"].exports, modules["'+MODULES[index][0]+'"]);\n';
+		if(MODULES[index][2]) {
+			code += 'modules["'+MODULES[index][0]+'"] = {exports: {}, uri: "'+MODULES[index][2]+'"};\n('+MODULES[index][1]+')(_require, modules["'+MODULES[index][0]+'"].exports, modules["'+MODULES[index][0]+'"]);\n';
 		}else{
 			code += 'modules["'+MODULES[index][0]+'"] = '+ JSON.stringify(MODULES[index][1]) + ';\n';
 		}
