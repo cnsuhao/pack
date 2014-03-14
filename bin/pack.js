@@ -66,7 +66,7 @@ function output() {
 	code += '\tvar modules = {};\n';
 	for(var index = 0; index<MODULES.length; ++index) {
 		if(path.extname(MODULES[index][0]) === '.js') {
-			code += 'modules["'+MODULES[index][0]+'"] = {exports: {}};\n('+MODULES[index][1]+')(_require, modules["'+MODULES[index][0]+'"].exports, modules["'+MODULES[index][0]+'"]);\n';
+			code += 'modules["'+MODULES[index][0]+'"] = {exports: {}, uri: "'+MODULES[index][0]+'"};\n('+MODULES[index][1]+')(_require, modules["'+MODULES[index][0]+'"].exports, modules["'+MODULES[index][0]+'"]);\n';
 		}else{
 			code += 'modules["'+MODULES[index][0]+'"] = '+ JSON.stringify(MODULES[index][1]) + ';\n';
 		}
