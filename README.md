@@ -11,7 +11,7 @@
 即可在代码中使用下面语法定义和使用模块：
 ```javascript
 define(function(require,exports,module){ // 参数均可选
-    // module.exports / module.uri
+    // 仅支持 module.exports 
     var bbb = require('/aaa/bbb.js'); // 加载其他模块（最好使用绝对路径）
     bbb.something();
     // ... 
