@@ -2,8 +2,7 @@
 (function() {
 
 	var modules = {};
-modules["060b8cb1"] = {exports: {}, uri: "/example/test/test.html"};
-(<div>"TEST-TEMPLATE"</div>)(_require, modules["060b8cb1"].exports, modules["060b8cb1"]);
+modules["060b8cb1"] = "<div>\"TEST-TEMPLATE\"</div>";
 modules["1b347cbd"] = {exports: {}, uri: "/example/test/test.js"};
 (function (require,exports,module) {
 	var tpl = require("060b8cb1"); // 加载资源模板
