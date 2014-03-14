@@ -3,7 +3,7 @@
 	function _require(path) {
 		var x = new XMLHttpRequest();
 		x.open("GET",path,false);
-		var $_exports;
+		var $$_exports;
 		if(path.match(/\.js$/)) {
 			x.onreadystatechange = function() {
 				if(x.readyState == 4) {
@@ -18,13 +18,13 @@
 						}
 						path = p1.join('/')+'/'+p2.join('/');
 					}
-					eval('$_exports = '+x.responseText+'\n//# sourceURL='+path);
+					eval('$$_exports = '+x.responseText+'\n//# sourceURL='+path);
 				}
 			}
 		}else{
 			x.onreadystatechange = function() {
 				if(x.readyState == 4) {
-					$_exports = x.responseText;
+					$$_exports = x.responseText;
 				}
 			}
 		}
