@@ -7,13 +7,18 @@
 		if(path.match(/\.js$/)) {
 			x.onreadystatechange = function() {
 				if(x.readyState == 4) {
-					var p1 = location.href.split('/'), p2 = path.split('/');
-					p1.pop(); p2.shift();
-					while(p2[0] === '..') {
-						p2.shift();
-						p1.pop();
+					if(path[0] === '/') {
+						path = location.origin+path;
+					}else{
+						var p1 = location.href.split('/'), p2 = path.split('/');
+						p1.pop(); p2.shift();
+						while(p2[0] === '..') {
+							p2.shift();
+							p1.pop();
+						}
+						path = p1.join('/')+'/'+p2.join('/');
 					}
-					eval('$_exports = '+x.responseText+'\n//# sourceURL='+p1.join('/')+'/'+p2.join('/'));
+					eval('$_exports = '+x.responseText+'\n//# sourceURL='+path);
 				}
 			}
 		}else{
@@ -29,7 +34,7 @@
 	// 模块定义函数
 	window.define = function(def) {
 		var module = {exports: {}};
-		def(_require, module, module.exports);
+		def(_require, module.exports, module);
 		return module.exports;
 	};
 })();
