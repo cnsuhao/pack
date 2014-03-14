@@ -48,9 +48,12 @@ function parse(file) {
 }
 
 function short(index) {
-	MODULES[index][2] = MODULES[index][0].substr(ROOT.length).replace(/\\/g,'/');
-	_file = crypto.createHash('md5').update(MODULES[index][2]).digest('hex').substr(0,8);
+	var path = MODULES[index][0].substr(ROOT.length).replace(/\\/g,'/');
+	if(MODULES[index][2]) {
+		MODULES[index][2] = path;
+	}
 
+	_file = crypto.createHash('md5').update(path).digest('hex').substr(0,8);
 	var pattern;
 	for(var i=0;i<MODULES.length;++i) {
 		if(i !== index) {
