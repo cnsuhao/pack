@@ -1,4 +1,4 @@
-超级简单的浏览器模块系统，含打包工具（基于 Nodejs）。<strong>使用方式，请参考 example 目录下的示例</strong>
+超级简单的浏览器模块 CMD 封装，含打包工具（基于 Nodejs）。<strong>使用方式，请参考 example 目录下的示例</strong>
 
 
 
